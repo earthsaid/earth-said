@@ -1,8 +1,10 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Loader2, Moon, Sun } from "lucide-react";
 
 const FORM_ENDPOINT = "https://formspree.io/f/xnppzawy";
+const GITHUB_URL = "https://github.com/earth-said";
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
+const EMPTY_FORM = { email: "", message: "" };
 
 const TECH_STACK = [
   { group: "Foundations", items: ["HTML", "CSS", "JavaScript"] },
@@ -12,42 +14,66 @@ const TECH_STACK = [
 const PROJECTS = [
   {
     title: "Quartier",
-    tag: "Frontend",
+    description: "Website for a neighborhood café.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/quartierScreenshot.png",
     demo: "https://quartier-cafe.vercel.app/",
-    github: "https://github.com/earth-said/quartier-cafe",
+    github: `${GITHUB_URL}/quartier-cafe`,
   },
   {
     title: "IronForge",
-    tag: "Frontend",
+    description: "Landing page for a gym.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/ironforgeScreenshot.png",
     demo: "https://ironforge-gym-rose.vercel.app/",
-    github: "https://github.com/earth-said/ironforge-gym",
+    github: `${GITHUB_URL}/ironforge-gym`,
   },
   {
     title: "Otelury",
-    tag: "Frontend",
+    description: "Website for a boutique hotel.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/oteluryScreenshot.png",
     demo: "https://otelury-hotel.vercel.app/",
-    github: "https://github.com/earth-said/otelury-hotel",
+    github: `${GITHUB_URL}/otelury-hotel`,
   },
   {
     title: "Brewhaus",
-    tag: "Frontend",
+    description: "Website for a coffee shop.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/brewhausScreenshot.png",
     demo: "https://brewhaus-iota.vercel.app/",
-    github: "https://github.com/earth-said/Brewhaus",
+    github: `${GITHUB_URL}/Brewhaus`,
   },
 ];
+
+const STATUS_MESSAGES = {
+  success: {
+    role: "status",
+    text: "Thanks! Your message was sent. I'll get back to you soon.",
+  },
+  error: {
+    role: "alert",
+    text: "Your message was not sent. Please try again.",
+  },
+};
+
+/* ---------- Shared styles ---------- */
 
 const arrowButtonStyle =
   "pointer-events-auto bg-muted rounded-full m-1 p-3 shadow-xl shadow-black/50 text-canvas cursor-pointer";
 
-const linkStyle = "text-accent underline";
+const linkStyle =
+  "text-ink underline decoration-muted underline-offset-4 hover:text-accent hover:decoration-accent";
+
+const proseBlockStyle =
+  "max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line";
+
+const proseTextStyle = "-ml-0.5 text-[18px] text-muted font-sans";
+
+const fieldStyle =
+  "w-full min-w-0 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus:border-ink";
+
+/* ---------- Small building blocks ---------- */
 
 function Title({ text }) {
   return (
@@ -55,6 +81,19 @@ function Title({ text }) {
       {text}
     </h2>
   );
+}
+
+function Section({ title, id, className = "", children }) {
+  return (
+    <section id={id} className={`mt-14 ${className}`}>
+      <Title text={title} />
+      {children}
+    </section>
+  );
+}
+
+function Highlight({ children }) {
+  return <span className="text-ink">{children}</span>;
 }
 
 function ThemeToggle() {
@@ -80,16 +119,18 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      className="mr-4 shrink-0 text-muted cursor-pointer hover:border-ink hover:text-ink"
+      className="mr-4 shrink-0 text-muted cursor-pointer hover:text-ink"
     >
       {dark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
   );
 }
 
-function ProjectCard({ title, tags, screenShot, demo, github }) {
+/* ---------- Projects ---------- */
+
+function ProjectCard({ title, description, tags, screenShot, demo, github }) {
   return (
-    <article className="-ml-px w-[90%] shrink-0 snap-start lg:w-[70%]">
+    <article className="w-[90%] shrink-0 snap-start lg:w-[70%]">
       <img
         src={screenShot}
         alt={`Screenshot of the ${title} website`}
@@ -97,7 +138,11 @@ function ProjectCard({ title, tags, screenShot, demo, github }) {
         className="aspect-video w-full object-cover border border-line"
       />
 
-      <p className="-ml-px font-sans text-muted mt-4">{tags.join(", ")}</p>
+      <h3 className="-ml-px mt-4 font-display text-2xl">{title}</h3>
+      <p className="-ml-px mt-1 font-sans text-ink">{description}</p>
+      <p className="-ml-px mt-2 font-sans text-sm text-muted">
+        {tags.join(", ")}
+      </p>
 
       <div className="-ml-px mt-3 flex flex-wrap gap-x-4 gap-y-1 font-sans">
         <a href={demo} target="_blank" rel="noreferrer" className={linkStyle}>
@@ -125,9 +170,10 @@ function ProjectsCarousel() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden mt-14">
-      <Title text="What I've built" />
-
+    <Section
+      title="What I've built"
+      className="relative w-full overflow-hidden"
+    >
       <div
         ref={scrollRef}
         className="ml-4 mt-4 py-1 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain border-l border-line"
@@ -155,15 +201,18 @@ function ProjectsCarousel() {
           <ArrowRight size={18} />
         </button>
       </div>
-    </div>
+    </Section>
   );
 }
 
-function ContactForm() {
-  const [values, setValues] = useState({ email: "", message: "" });
+/* ---------- Contact ---------- */
+
+function ContactForm({ emailRef }) {
+  const [values, setValues] = useState(EMPTY_FORM);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
   const isLoading = status === "loading";
+  const feedback = STATUS_MESSAGES[status];
   const canSend =
     EMAIL_PATTERN.test(values.email.trim()) &&
     values.message.trim() !== "" &&
@@ -173,7 +222,7 @@ function ContactForm() {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
 
-    if (status === "success" || status === "error") setStatus("idle");
+    if (feedback) setStatus("idle");
   };
 
   const handleSubmit = async (e) => {
@@ -196,7 +245,7 @@ function ContactForm() {
       });
       if (!res.ok) throw new Error("Request failed");
 
-      setValues({ email: "", message: "" });
+      setValues(EMPTY_FORM);
       setStatus("success");
     } catch {
       setStatus("error");
@@ -204,14 +253,13 @@ function ContactForm() {
   };
 
   return (
-    <div className="mt-14">
-      <Title text="Let's talk about your project" />
-
+    <Section id="contact" title="Let's talk about your project">
       <form
         onSubmit={handleSubmit}
         className="max-w-80 ml-4 mr-4 mt-4 py-1 flex flex-col gap-4"
       >
         <input
+          ref={emailRef}
           type="email"
           name="email"
           autoComplete="email"
@@ -220,7 +268,7 @@ function ContactForm() {
           onChange={handleChange}
           aria-label="Your email"
           placeholder="Your email"
-          className="w-full min-w-0 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
+          className={fieldStyle}
         />
         <textarea
           name="message"
@@ -229,51 +277,51 @@ function ContactForm() {
           onChange={handleChange}
           aria-label="About your project"
           placeholder="Tell me about your project..."
-          className="w-full min-w-0 resize-y min-h-40 max-h-80 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
+          className={`${fieldStyle} min-h-40 max-h-80`}
         ></textarea>
 
         <button
           type="submit"
           disabled={!canSend}
-          className="flex items-center justify-center gap-2 bg-muted hover:bg-ink disabled:hover:bg-muted border border-line px-4 py-4 font-sans text-canvas cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex items-center justify-center gap-2 border border-line bg-ink px-4 py-4 font-sans text-canvas cursor-pointer hover:bg-accent disabled:cursor-not-allowed disabled:bg-transparent disabled:text-muted disabled:hover:bg-transparent"
         >
           {isLoading && <Loader2 size={16} className="animate-spin" />}
           {isLoading ? "Sending..." : "Send message"}
         </button>
 
-        {status === "success" && (
-          <p role="status" className="font-sans text-sm text-muted">
-            Thanks! Your message was sent. I'll get back to you soon.
-          </p>
-        )}
-        {status === "error" && (
-          <p role="alert" className="font-sans text-sm text-muted">
-            Your message was not sent. Please try again.
+        {feedback && (
+          <p role={feedback.role} className="font-sans text-sm text-muted">
+            {feedback.text}
           </p>
         )}
       </form>
-    </div>
+    </Section>
   );
 }
 
+/* ---------- Page ---------- */
+
 function App() {
-  const [picture, setPicture] = useState(false);
+  const emailRef = useRef(null);
+
+  // Clicking anywhere outside the email field takes focus away from it.
+  useEffect(() => {
+    const blurEmail = (e) => {
+      if (e.target !== emailRef.current) emailRef.current?.blur();
+    };
+
+    document.addEventListener("click", blurEmail, true);
+    return () => document.removeEventListener("click", blurEmail, true);
+  }, []);
+
+  const focusEmail = (e) => {
+    e.preventDefault();
+    emailRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    emailRef.current?.focus({ preventScroll: true });
+  };
 
   return (
     <div className="w-full min-h-screen bg-canvas overflow-x-hidden">
-      {picture && (
-        <div
-          onClick={() => setPicture(false)}
-          className="fixed inset-0 z-50 bg-ink/20 backdrop-blur-sm flex justify-center items-center"
-        >
-          <img
-            src="/images/my-picture.jpg"
-            alt="Portrait of Said Hadji"
-            className="aspect-square w-70 max-w-[80vw] rounded-full object-cover"
-          />
-        </div>
-      )}
-
       <div className="container mx-auto flex justify-center px-2 sm:px-0">
         <div className="w-full max-w-275 h-full border-l border-line">
           <div className="w-full pt-5 border-b border-line flex items-center justify-between gap-2">
@@ -283,28 +331,29 @@ function App() {
             <ThemeToggle />
           </div>
 
-          <div className="mt-14">
-            <Title text="Who am I?" />
-
-            <div className="max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line space-y-1">
-              <p className="-ml-0.5 text-[18px] text-muted font-sans">
-                I'm an{" "}
-                <span className="text-ink">early-career frontend developer</span>{" "}
-                from <span className="text-ink">Morocco</span>.
+          <Section title="Who am I?">
+            <div className={`${proseBlockStyle} space-y-1`}>
+              <p className={proseTextStyle}>
+                I'm an <Highlight>early-career frontend developer</Highlight>{" "}
+                from <Highlight>Morocco</Highlight>.
               </p>
 
-              <button
-                onClick={() => setPicture(true)}
-                className="font-sans text-ink text-[18px] underline cursor-pointer -ml-px"
-              >
-                View my photo
-              </button>
+              <p className={proseTextStyle}>
+                Available for <Highlight>frontend work</Highlight>.{" "}
+                <a href="#contact" onClick={focusEmail} className={linkStyle}>
+                  Get in touch
+                </a>
+              </p>
+
+              <img
+                src="/images/my-picture.jpg"
+                alt="Portrait of Said Hadji"
+                className="aspect-square w-70 max-w-[80vw] object-cover border-t border-b border-r border-line"
+              />
             </div>
-          </div>
+          </Section>
 
-          <div className="mt-14">
-            <Title text="Technologies I work with" />
-
+          <Section title="Technologies I work with">
             <dl className="ml-4 mt-4 border-t border-line">
               {TECH_STACK.map(({ group, items }) => (
                 <div
@@ -320,33 +369,29 @@ function App() {
                 </div>
               ))}
             </dl>
-          </div>
+          </Section>
 
-          <div className="mt-14">
-            <Title text="What I can build for you" />
-
-            <div className="max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line">
-              <p className="-ml-0.5 text-[18px] text-muted font-sans leading-7.5">
+          <Section title="What I can build for you">
+            <div className={proseBlockStyle}>
+              <p className={`${proseTextStyle} leading-7.5`}>
                 I build clean, responsive websites and web apps with{" "}
-                <span className="text-ink">
-                  React, JavaScript, and Tailwind CSS
-                </span>
-                , from landing pages to dashboards. I focus on the details:
-                readable typography, smooth interactions, and layouts that work
-                on every screen. My code is simple to read and easy to
-                maintain, and what I build looks as good as it works.
+                <Highlight>React, JavaScript, and Tailwind CSS</Highlight>, from
+                landing pages to dashboards. I focus on the details: readable
+                typography, smooth interactions, and layouts that work on every
+                screen. My code is simple to read and easy to maintain, and what
+                I build looks as good as it works.
               </p>
             </div>
-          </div>
+          </Section>
 
           <ProjectsCarousel />
 
-          <ContactForm />
+          <ContactForm emailRef={emailRef} />
 
           <footer className="mt-14 flex items-center justify-between gap-4 border-t border-line py-5 pr-4 md:pr-0 font-sans text-sm text-muted">
             <p>© {new Date().getFullYear()} Said Hadji</p>
             <a
-              href="https://github.com/earth-said"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               className="hover:text-accent"

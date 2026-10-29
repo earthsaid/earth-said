@@ -10,7 +10,7 @@
   --line: #e4e1da; /* borders, dividers */
   --ink: #1c1b19; /* main text */
   --muted: #6b675f; /* secondary text */
-  --accent: #2f4bd8; /* ultramarine: italic word, link hover, primary button */
+  --accent: #2f4bd8; /* ultramarine: link hover, button hover */
   color-scheme: light;
 }
 
@@ -38,18 +38,20 @@
   --font-sans: "Geist", system-ui, sans-serif;
 }
 
+/* ---------- Base ---------- */
 @layer base {
   body {
     @apply bg-canvas text-ink font-sans antialiased;
+    user-select: none;
+  }
+
+  textarea {
+    resize: none;
+    field-sizing: content;
   }
 }
 
+/* ---------- Hide scrollbar ---------- */
 ::-webkit-scrollbar {
   display: none;
 }
-
-textarea {
-  resize: none;
-  field-sizing: content;
-}
-

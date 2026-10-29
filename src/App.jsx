@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { ArrowLeft, ArrowRight, Loader2, Moon, Sun } from "lucide-react";
 
-const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORM_ENDPOINT = "https://formspree.io/f/xnppzawy";
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
 
 const TECH_STACK = [
@@ -16,7 +16,7 @@ const PROJECTS = [
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/quartierScreenshot.png",
     demo: "https://quartier-cafe.vercel.app/",
-    github: "https://github.com/said-hadji/quartier-cafe",
+    github: "https://github.com/earth-said/quartier-cafe",
   },
   {
     title: "IronForge",
@@ -24,7 +24,7 @@ const PROJECTS = [
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/ironforgeScreenshot.png",
     demo: "https://ironforge-gym-rose.vercel.app/",
-    github: "https://github.com/said-hadji/ironforge-gym",
+    github: "https://github.com/earth-said/ironforge-gym",
   },
   {
     title: "Otelury",
@@ -32,7 +32,7 @@ const PROJECTS = [
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/oteluryScreenshot.png",
     demo: "https://otelury-hotel.vercel.app/",
-    github: "https://github.com/said-hadji/otelury-hotel",
+    github: "https://github.com/earth-said/otelury-hotel",
   },
   {
     title: "Brewhaus",
@@ -40,7 +40,7 @@ const PROJECTS = [
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/brewhausScreenshot.png",
     demo: "https://brewhaus-iota.vercel.app/",
-    github: "https://github.com/said-hadji/Brewhaus",
+    github: "https://github.com/earth-said/Brewhaus",
   },
 ];
 
@@ -348,7 +348,7 @@ function App() {
           <footer className="mt-14 flex items-center justify-between gap-4 border-t border-line py-5 pr-4 md:pr-0 font-sans text-sm text-muted">
             <p>© {new Date().getFullYear()} Said Hadji</p>
             <a
-              href="https://github.com/said-hadji"
+              href="https://github.com/earth-said"
               target="_blank"
               rel="noreferrer"
               className="hover:text-accent"

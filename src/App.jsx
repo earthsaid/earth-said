@@ -207,8 +207,6 @@ function ContactForm() {
     <div className="mt-14">
       <Title text="Let's talk about your project" />
 
-      {/* Was `w-full max-w-80 ml-4`: w-full + ml-4 overflowed narrow screens.
-          Now the form fills the space left by the margins, capped at 20rem. */}
       <form
         onSubmit={handleSubmit}
         className="max-w-80 ml-4 mr-4 mt-4 py-1 flex flex-col gap-4"
@@ -276,7 +274,7 @@ function App() {
         </div>
       )}
 
-      <div className="container mx-auto flex justify-center">
+      <div className="container mx-auto flex justify-center px-2 sm:px-0">
         <div className="w-full max-w-275 h-full border-l border-line">
           <div className="w-full pt-5 border-b border-line flex items-center justify-between gap-2">
             <h1 className="-ml-px text-4xl sm:text-5xl md:text-6xl font-display">

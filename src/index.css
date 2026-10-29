@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Light (default) ---------- */
+:root {
+  --canvas: #faf9f6; /* page background */
+  --surface: #f2f0eb; /* cards, panels */
+  --line: #e4e1da; /* borders, dividers */
+  --ink: #1c1b19; /* main text */
+  --muted: #6b675f; /* secondary text */
+  --accent: #2f4bd8; /* ultramarine: italic word, link hover, primary button */
+  color-scheme: light;
+}
+
+/* ---------- Dark ---------- */
+.dark {
+  --canvas: #121110;
+  --surface: #1b1a18;
+  --line: #2c2a27;
+  --ink: #edebe6;
+  --muted: #9a968d;
+  --accent: #7c93ff;
+  color-scheme: dark;
+}
+
+/* ---------- Tailwind tokens ---------- */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+
+  --font-display: "Instrument Serif", serif;
+  --font-sans: "Geist", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+textarea {
+  resize: none;
+  field-sizing: content;
+}
+

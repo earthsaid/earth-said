@@ -91,6 +91,7 @@ function ProjectCard({ title, tags, screenShot, demo, github }) {
       <img
         src={screenShot}
         alt={`Screenshot of the ${title} website`}
+        loading="lazy"
         className="aspect-video w-full object-cover border border-line"
       />
 

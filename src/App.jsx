@@ -44,14 +44,17 @@ const PROJECTS = [
   },
 ];
 
+// Responsive: slightly smaller buttons on phones, original size from sm up.
 const arrowButtonStyle =
-  "pointer-events-auto bg-muted rounded-full m-1 p-3 shadow-xl shadow-black/50 text-canvas cursor-pointer";
+  "pointer-events-auto bg-muted rounded-full m-1 p-2 sm:p-3 shadow-xl shadow-black/50 text-canvas cursor-pointer";
 
 const linkStyle = "text-accent underline";
 
 function Title({ text }) {
   return (
-    <h2 className="text-3xl font-display w-fit border-b border-line">{text}</h2>
+    <h2 className="text-2xl sm:text-3xl font-display w-fit max-w-full border-b border-line">
+      {text}
+    </h2>
   );
 }
 
@@ -78,7 +81,7 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      className="mr-4 text-muted cursor-pointer hover:border-ink hover:text-ink"
+      className="mr-4 shrink-0 text-muted cursor-pointer hover:border-ink hover:text-ink"
     >
       {dark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
@@ -97,7 +100,7 @@ function ProjectCard({ title, tags, screenShot, demo, github }) {
 
       <p className="-ml-px font-sans text-muted mt-4">{tags.join(", ")}</p>
 
-      <div className="-ml-px mt-3 flex gap-4 font-sans">
+      <div className="-ml-px mt-3 flex flex-wrap gap-x-4 gap-y-1 font-sans">
         <a href={demo} target="_blank" rel="noreferrer" className={linkStyle}>
           Live demo
         </a>
@@ -128,7 +131,7 @@ function ProjectsCarousel() {
 
       <div
         ref={scrollRef}
-        className="ml-4 mt-4 py-1 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto border-l border-line"
+        className="ml-4 mt-4 py-1 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain border-l border-line"
       >
         {PROJECTS.map((project) => (
           <ProjectCard key={project.title} {...project} />
@@ -205,9 +208,11 @@ function ContactForm() {
     <div className="mt-14">
       <Title text="Let's talk about your project" />
 
+      {/* Was `w-full max-w-80 ml-4`: w-full + ml-4 overflowed narrow screens.
+          Now the form fills the space left by the margins, capped at 20rem. */}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-80 ml-4 mt-4 py-1 flex flex-col gap-4"
+        className="max-w-80 ml-4 mr-4 mt-4 py-1 flex flex-col gap-4"
       >
         <input
           type="email"
@@ -218,7 +223,7 @@ function ContactForm() {
           onChange={handleChange}
           aria-label="Your email"
           placeholder="Your email"
-          className="text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
+          className="w-full min-w-0 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
         />
         <textarea
           name="message"
@@ -227,7 +232,7 @@ function ContactForm() {
           onChange={handleChange}
           aria-label="About your project"
           placeholder="Tell me about your project..."
-          className="min-h-40 max-h-80 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
+          className="w-full min-w-0 resize-y min-h-40 max-h-80 text-lg border-b border-line pt-4 placeholder:text-muted outline-none focus-within:border-ink"
         ></textarea>
 
         <button
@@ -258,7 +263,7 @@ function App() {
   const [picture, setPicture] = useState(false);
 
   return (
-    <div className="w-full min-h-screen bg-canvas">
+    <div className="w-full min-h-screen bg-canvas overflow-x-hidden">
       {picture && (
         <div
           onClick={() => setPicture(false)}
@@ -267,22 +272,24 @@ function App() {
           <img
             src="/images/my-picture.jpg"
             alt="Portrait of Said Hadji"
-            className="aspect-square w-70 rounded-full object-cover"
+            className="aspect-square w-70 max-w-[80vw] rounded-full object-cover"
           />
         </div>
       )}
 
       <div className="container mx-auto flex justify-center">
         <div className="w-full max-w-275 h-full border-l border-line">
-          <div className="w-full pt-5 border-b border-line flex items-center justify-between">
-            <h1 className="-ml-px text-6xl font-display">Said Hadji</h1>
+          <div className="w-full pt-5 border-b border-line flex items-center justify-between gap-2">
+            <h1 className="-ml-px text-4xl sm:text-5xl md:text-6xl font-display">
+              Said Hadji
+            </h1>
             <ThemeToggle />
           </div>
 
           <div className="mt-14">
             <Title text="Who am I?" />
 
-            <div className="max-w-prose ml-4 mt-4 py-1 border-l border-line space-y-1">
+            <div className="max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line space-y-1">
               <p className="-ml-0.5 text-[18px] text-muted font-sans">
                 I'm an{" "}
                 <span className="text-ink">early-career frontend developer</span>{" "}
@@ -305,10 +312,10 @@ function App() {
               {TECH_STACK.map(({ group, items }) => (
                 <div
                   key={group}
-                  className="grid gap-1 border-b border-line py-5 sm:grid-cols-[12rem_1fr]"
+                  className="grid gap-1 border-b border-line py-5 pr-4 md:pr-0 sm:grid-cols-[12rem_1fr]"
                 >
                   <dt className="font-sans text-muted">{group}</dt>
-                  <dd className="flex flex-wrap gap-x-6 gap-y-1 font-display text-2xl">
+                  <dd className="flex flex-wrap gap-x-6 gap-y-1 font-display text-xl sm:text-2xl">
                     {items.map((item) => (
                       <span key={item}>{item}</span>
                     ))}
@@ -321,7 +328,7 @@ function App() {
           <div className="mt-14">
             <Title text="What I can build for you" />
 
-            <div className="max-w-prose ml-4 mt-4 py-1 border-l border-line">
+            <div className="max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line">
               <p className="-ml-0.5 text-[18px] text-muted font-sans leading-7.5">
                 I build clean, responsive websites and web apps with{" "}
                 <span className="text-ink">
@@ -339,7 +346,7 @@ function App() {
 
           <ContactForm />
 
-          <footer className="mt-14 flex items-center justify-between border-t border-line py-5 font-sans text-sm text-muted">
+          <footer className="mt-14 flex items-center justify-between gap-4 border-t border-line py-5 pr-4 md:pr-0 font-sans text-sm text-muted">
             <p>© {new Date().getFullYear()} Said Hadji</p>
             <a
               href="https://github.com/said-hadji"

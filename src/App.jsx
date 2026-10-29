@@ -44,9 +44,8 @@ const PROJECTS = [
   },
 ];
 
-// Responsive: slightly smaller buttons on phones, original size from sm up.
 const arrowButtonStyle =
-  "pointer-events-auto bg-muted rounded-full m-1 p-2 sm:p-3 shadow-xl shadow-black/50 text-canvas cursor-pointer";
+  "pointer-events-auto bg-muted rounded-full m-1 p-3 shadow-xl shadow-black/50 text-canvas cursor-pointer";
 
 const linkStyle = "text-accent underline";
 
@@ -138,7 +137,7 @@ function ProjectsCarousel() {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 w-full flex justify-between gap-2 ml-4">
+      <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 w-full hidden sm:flex justify-between gap-2 ml-4">
         <button
           type="button"
           onClick={() => scroll(-1)}

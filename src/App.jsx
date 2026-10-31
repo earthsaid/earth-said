@@ -13,10 +13,17 @@ const TECH_STACK = [
 
 const PROJECTS = [
   {
+    title: "Coreframe",
+    description: "Hardware e-commerce website",
+    tags: ["React", "Tailwind CSS", "JavaScript"],
+    screenShot: "/screenShots/coreframe_s.png",
+    demo: "https://coreframe-hardware.vercel.app",
+  },
+  {
     title: "Quartier",
     description: "Website for a neighborhood café.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/quartierScreenshot.png",
+    screenShot: "/screenShots/quartier_s.png",
     demo: "https://quartier-cafe.vercel.app/",
     github: `${GITHUB_URL}/quartier-cafe`,
   },
@@ -24,7 +31,7 @@ const PROJECTS = [
     title: "IronForge",
     description: "Landing page for a gym.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/ironforgeScreenshot.png",
+    screenShot: "/screenShots/ironforge_s.png",
     demo: "https://ironforge-gym-rose.vercel.app/",
     github: `${GITHUB_URL}/ironforge-gym`,
   },
@@ -32,7 +39,7 @@ const PROJECTS = [
     title: "Otelury",
     description: "Website for a boutique hotel.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/oteluryScreenshot.png",
+    screenShot: "/screenShots/otelury_s.png",
     demo: "https://otelury-hotel.vercel.app/",
     github: `${GITHUB_URL}/otelury-hotel`,
   },
@@ -40,7 +47,7 @@ const PROJECTS = [
     title: "Brewhaus",
     description: "Website for a coffee shop.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/brewhausScreenshot.png",
+    screenShot: "/screenShots/brewhaus_s.png",
     demo: "https://brewhaus-iota.vercel.app/",
     github: `${GITHUB_URL}/Brewhaus`,
   },
@@ -145,12 +152,13 @@ function ProjectCard({ title, description, tags, screenShot, demo, github }) {
       </p>
 
       <div className="-ml-px mt-3 flex flex-wrap gap-x-4 gap-y-1 font-sans">
-        <a href={demo} target="_blank" rel="noreferrer" className={linkStyle}>
+        {demo && <a href={demo} target="_blank" rel="noreferrer" className={linkStyle}>
           Live demo
         </a>
-        <a href={github} target="_blank" rel="noreferrer" className={linkStyle}>
+        }
+        {github && <a href={github} target="_blank" rel="noreferrer" className={linkStyle}>
           Source code
-        </a>
+        </a>}
       </div>
     </article>
   );

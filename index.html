@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -10,13 +10,20 @@
       content="Frontend developer from Morocco building clean, responsive React websites."
     />
     <script>
-      const t = localStorage.getItem("theme");
-      if (
-        t === "dark" ||
-        (!t && matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      }
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      (() => {
+        let saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch {
+          // Storage can be unavailable (private mode); fall back to the system theme.
+        }
+
+        const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
     </script>
   </head>
   <body>

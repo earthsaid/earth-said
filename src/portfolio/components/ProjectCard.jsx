@@ -19,7 +19,7 @@ export default function ProjectCard({
         src={screenShot}
         alt={`Screenshot of the ${title} website`}
         loading="lazy"
-        className="aspect-video w-full object-cover border border-line"
+        className="aspect-video w-full object-cover border border-line bg-surface"
       />
 
       <h3 className="-ml-px mt-4 font-display text-2xl">{title}</h3>

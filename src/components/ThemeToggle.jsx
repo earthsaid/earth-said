@@ -24,9 +24,10 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      className="mr-4 shrink-0 text-muted cursor-pointer hover:text-ink"
+      className="flex items-center gap-2 shrink-0 text-muted cursor-pointer hover:text-ink px-6 py-5"
     >
       {dark ? <Sun size={18} /> : <Moon size={18} />}
+      <span className="mt-0.5">Theme</span>
     </button>
   );
 }

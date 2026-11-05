@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Section from "./Section";
-import ThemeToggle from "./ThemeToggle";
 import { Highlight, TextLink } from "./Typography";
+import MenuToggle from "../../components/MenuToggle";
+import Menu from "../../components/Menu";
+import { House } from "lucide-react";
 
 const proseBlockStyle =
   "max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line";
@@ -8,13 +11,17 @@ const proseBlockStyle =
 const proseTextStyle = "-ml-0.5 text-[18px] text-muted font-sans";
 
 export default function Hero({ focusEmail }) {
+  const [isMenu, setIsMenu] = useState(false);
+
   return (
     <div>
-      <div className="w-full pt-5 border-b border-line flex items-center justify-between gap-2">
+      <div className="relative w-full pt-5 border-b border-line flex items-center justify-between gap-2">
         <h1 className="-ml-px text-4xl sm:text-5xl md:text-6xl font-display">
           Said Hadji
         </h1>
-        <ThemeToggle />
+
+        <MenuToggle isMenu={isMenu} setIsMenu={setIsMenu} />
+        {isMenu && <Menu items={[{ icon: House, label: "Said's PPS" }]} />}
       </div>
 
       <Section title="Who am I?">

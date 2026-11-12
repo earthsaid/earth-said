@@ -32,7 +32,7 @@ export default function Hero({ focusEmail }) {
           </p>
 
           <p className={proseTextStyle}>
-            Available for <Highlight>frontend work</Highlight>.{" "}
+            Looking for a <Highlight>frontend internship</Highlight>
           </p>
 
           <div className="space-x-3 mt-4">

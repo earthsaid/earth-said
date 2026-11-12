@@ -44,6 +44,30 @@ export default function ProjectsCarousel() {
         ref={scrollRef}
         className="ml-4 mt-4 py-1 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain border-l border-line"
       >
+        <div className="w-[90%] shrink-0 snap-start lg:w-[70%]">
+          <div className="aspect-video bg-[#080808] flex items-center justify-center">
+            <h1 className="text-9xl text-white font-extrabold">NEID</h1>
+          </div>
+
+          <h3 className="-ml-px mt-4 font-display text-2xl">NEID</h3>
+          <p className="-ml-px mt-1 font-sans text-ink">
+            A web app for freelancers to manage their clients, projects, and
+            tasks.
+          </p>
+          <p className="-ml-px mt-2 font-sans text-sm text-muted">
+            React, Tailwind CSS, JavaScript | Node.js, Express, PostgreSQL
+          </p>
+
+          <a
+            href="https://www.neid.ma"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block -ml-px mt-3 text-ink underline decoration-muted underline-offset-4 hover:text-accent hover:decoration-accent"
+          >
+            Live demo
+          </a>
+        </div>
+
         {PROJECTS.map((project) => (
           <ProjectCard key={project.title} {...project} />
         ))}

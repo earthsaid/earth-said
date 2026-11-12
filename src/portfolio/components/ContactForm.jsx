@@ -57,7 +57,7 @@ export default function ContactForm({ emailRef }) {
   };
 
   return (
-    <Section id="contact" title="Let's talk about your project">
+    <Section id="contact" title="Get in touch">
       <form
         onSubmit={handleSubmit}
         className="max-w-80 ml-4 mr-4 mt-4 py-1 flex flex-col gap-4"

@@ -4,15 +4,8 @@ export const GITHUB_URL = "https://github.com/earthsaid";
 
 export const PROJECTS = [
   {
-    title: "NEID",
-    description: "A web app for freelancers to manage their clients, projects, and tasks.",
-    tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/neid_s.png",
-    demo: "https://www.neid.ma",
-  },
-  {
     title: "Quartier",
-    description: "Website for a neighborhood café.",
+    description: "Concept website for a neighborhood café.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/quartier_s.png",
     demo: "https://quartier-cafe.vercel.app/",
@@ -20,7 +13,7 @@ export const PROJECTS = [
   },
   {
     title: "IronForge",
-    description: "Landing page for a gym.",
+    description: "Concept landing page for a gym.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/ironforge_s.png",
     demo: "https://ironforge-gym-rose.vercel.app/",
@@ -28,7 +21,7 @@ export const PROJECTS = [
   },
   {
     title: "Otelury",
-    description: "Website for a boutique hotel.",
+    description: "Concept website for a boutique hotel.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/otelury_s.png",
     demo: "https://otelury-hotel.vercel.app/",
@@ -36,7 +29,7 @@ export const PROJECTS = [
   },
   {
     title: "Brewhaus",
-    description: "Website for a coffee shop.",
+    description: "Concept website for a coffee shop.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
     screenShot: "/screenShots/brewhaus_s.png",
     demo: "https://brewhaus-iota.vercel.app/",

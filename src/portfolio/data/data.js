@@ -1,4 +1,6 @@
-export const GITHUB_URL = "https://github.com/earth-said";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+
+export const GITHUB_URL = "https://github.com/earthsaid";
 
 export const PROJECTS = [
   {
@@ -57,3 +59,22 @@ export const STATUS_MESSAGES = {
     text: "Your message was not sent. Please try again.",
   },
 };
+
+export const SOCIAL_MEDIA = [
+  {
+    label: "Github",
+    url: GITHUB_URL,
+    icon: FaGithub,
+  },
+  {
+    label: "Linkedin",
+    url: "https://www.linkedin.com/in/said-hadji-363793404",
+    icon: FaLinkedin,
+  },
+
+  {
+    label: "Instagram",
+    url: "https://www.instagram.com/earth.said?exln=bmdoOWpwMTI3dDUO",
+    icon: FaInstagram,
+  },
+];

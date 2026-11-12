@@ -46,7 +46,7 @@ export default function ProjectsCarousel() {
       >
         <div className="w-[90%] shrink-0 snap-start lg:w-[70%]">
           <div className="aspect-video bg-[#080808] flex items-center justify-center">
-            <h1 className="text-9xl text-white font-extrabold">NEID</h1>
+            <h1 className="text-6xl md:text-9xl text-white font-extrabold">NEID</h1>
           </div>
 
           <h3 className="-ml-px mt-4 font-display text-2xl">NEID</h3>

@@ -35,17 +35,17 @@ export default function Hero({ focusEmail }) {
             Looking for a <Highlight>frontend internship</Highlight>
           </p>
 
-          <div className="space-x-3 mt-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-4">
             <a
               href="/cv/SAID_HADJI_CV.pdf"
               download="SAID_HADJI_CV.pdf"
-              className="inline-block bg-ink hover:bg-accent px-6 py-3 text-canvas cursor-pointer"
+              className="inline-block w-55 sm:w-40 bg-ink hover:bg-accent py-2 sm:py-3 text-canvas text-center cursor-pointer"
             >
               Download CV
             </a>
             <button
               onClick={focusEmail}
-              className="bg-ink hover:bg-accent px-6 py-3 text-canvas cursor-pointer"
+              className="w-55 sm:w-40 border border-ink hover:border-accent hover:bg-accent py-2 sm:py-3 text-ink hover:text-canvas text-center cursor-pointer"
             >
               Get in touch
             </button>

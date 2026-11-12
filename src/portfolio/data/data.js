@@ -4,11 +4,11 @@ export const GITHUB_URL = "https://github.com/earthsaid";
 
 export const PROJECTS = [
   {
-    title: "Coreframe",
-    description: "Hardware e-commerce website",
+    title: "NEID",
+    description: "A web app for freelancers to manage their clients, projects, and tasks.",
     tags: ["React", "Tailwind CSS", "JavaScript"],
-    screenShot: "/screenShots/coreframe_s.png",
-    demo: "https://coreframe-hardware.vercel.app",
+    screenShot: "/screenShots/neid_s.png",
+    demo: "https://www.neid.ma",
   },
   {
     title: "Quartier",

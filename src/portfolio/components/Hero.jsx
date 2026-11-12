@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Section from "./Section";
-import { Highlight, TextLink } from "./Typography";
+import { Highlight } from "./Typography";
 import MenuToggle from "../../components/MenuToggle";
 import Menu from "../../components/Menu";
 import { House } from "lucide-react";
@@ -33,10 +33,23 @@ export default function Hero({ focusEmail }) {
 
           <p className={proseTextStyle}>
             Available for <Highlight>frontend work</Highlight>.{" "}
-            <TextLink href="#contact" onClick={focusEmail}>
-              Get in touch
-            </TextLink>
           </p>
+
+          <div className="space-x-3 mt-4">
+            <a
+              href="/cv/SAID_HADJI_CV.pdf"
+              download="SAID_HADJI_CV.pdf"
+              className="inline-block bg-ink hover:bg-accent px-6 py-3 text-canvas cursor-pointer"
+            >
+              Download CV
+            </a>
+            <button
+              onClick={focusEmail}
+              className="bg-ink hover:bg-accent px-6 py-3 text-canvas cursor-pointer"
+            >
+              Get in touch
+            </button>
+          </div>
         </div>
       </Section>
     </div>

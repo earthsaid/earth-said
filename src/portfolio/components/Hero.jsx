@@ -37,12 +37,6 @@ export default function Hero({ focusEmail }) {
               Get in touch
             </TextLink>
           </p>
-
-          <img
-            src="/images/my-picture.jpg"
-            alt="Portrait of Said Hadji"
-            className="aspect-square w-70 max-w-[80vw] object-cover border-t border-b border-r border-line"
-          />
         </div>
       </Section>
     </div>

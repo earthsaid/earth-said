@@ -4,6 +4,7 @@ import ContactForm from "../portfolio/components/ContactForm";
 import Hero from "../portfolio/components/Hero";
 import Stack from "../portfolio/components/Stack";
 import ProjectsCarousel from "../portfolio/components/ProjectsCarousel";
+import WhatIcanBuild from "../portfolio/components/WhatIcanBuild";
 
 export default function Portfolio() {
   const emailRef = useRef(null);
@@ -28,6 +29,7 @@ export default function Portfolio() {
       <main>
         <Hero focusEmail={focusEmail} />
         <Stack />
+        <WhatIcanBuild />
         <ProjectsCarousel />
         <ContactForm emailRef={emailRef} />
       </main>

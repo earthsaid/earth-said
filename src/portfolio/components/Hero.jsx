@@ -4,11 +4,7 @@ import { Highlight } from "./Typography";
 import MenuToggle from "../../components/MenuToggle";
 import Menu from "../../components/Menu";
 import { House } from "lucide-react";
-
-const proseBlockStyle =
-  "max-w-prose ml-4 mr-4 md:mr-0 mt-4 py-1 border-l border-line";
-
-const proseTextStyle = "-ml-0.5 text-[18px] text-muted font-sans";
+import { PROSE_BLOCK_STYLE, PROSE_TEXT_STYLE } from "./index";
 
 export default function Hero({ focusEmail }) {
   const [isMenu, setIsMenu] = useState(false);
@@ -21,17 +17,17 @@ export default function Hero({ focusEmail }) {
         </h1>
 
         <MenuToggle isMenu={isMenu} setIsMenu={setIsMenu} />
-        {isMenu && <Menu items={[{ icon: House, label: "Said's PPS" }]} />}
+        {isMenu && <Menu items={[{ icon: House, label: "Personal public space", to: "personal-public-space" }]} />}
       </div>
 
       <Section title="Who am I?">
-        <div className={`${proseBlockStyle} space-y-1`}>
-          <p className={proseTextStyle}>
+        <div className={`${PROSE_BLOCK_STYLE} space-y-1`}>
+          <p className={PROSE_TEXT_STYLE}>
             I'm an <Highlight>early-career frontend developer</Highlight> from{" "}
             <Highlight>Morocco</Highlight>.
           </p>
 
-          <p className={proseTextStyle}>
+          <p className={PROSE_TEXT_STYLE}>
             Looking for a <Highlight>frontend internship</Highlight>
           </p>
 
